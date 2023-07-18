@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif
+        }
+        body {
+            background-color: #F2EFEE;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 13px ;
+        }
+        .box {
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            width: 450px;
+            background-color: #fff;
+            border-radius: 10px;
+        }
+        .box .title {
+            padding: 1rem;
+            background-color: #0071C5;
+            color: #fff;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            font-weight: 500;
+        }
+        .box .container {
+            padding: 2rem 1rem;
+        }
+        .box .container .result {
+            display: flex;
+            box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+            margin-bottom: 1.2rem;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 3px;
+            padding: 5px;
+        }
+        .box .container .result input {
+            padding: .5rem;
+            height: 53px;
+            border-radius: 5px;
+            font-size: 25px;
+            width: 80%;
+            background-color: transparent;
+            border: transparent;
+            box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+        }
+        .box .container .result button {
+            height: 53px;
+            color: #fff;
+            background-color: #0071C5;
+            border: transparent;
+            border-radius: 5px;
+            width: 18%;
+            cursor: pointer;
+        }
+        .box .container .bx .sr {
+            width: 90%;
+            height: 5px;
+            background-color: #eee;
+            border-radius: 10px;
+        }
+        .box .container .bx {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+        }
+        .box .container .bx input:not([type="checkbox"]) {
+            box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            outline: none;
+            border-radius: 5px;
+        }
+        .box .container .bx h4 {
+            color: #333;
+        }
+        .box .container .bx input[type="checkbox"] {
+            appearance: none;
+            position: relative;
+            width: 60px;
+            cursor: pointer;
+            height: 30px;
+            background-color: rgb(244 67 54 / 80%);
+            transition: .3s linear;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+            border-radius: 60px;
+        }
+        .box .container .bx input[type="checkbox"]::before {
+            content: "";
+            position: absolute;
+            left: -6px;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 35px;
+            height: 35px;
+            background-color: #fff;
+            border-radius: 50%;
+        }
+        .box .container .bx input[type="checkbox"]:checked:before {
+            transform: translateX(38px) translateY(-50%);
+            box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+        } 
+        .box .container .bx input[type="checkbox"]:checked {
+            background-color: #73CE8C;
+        }
+        .box .container > button {
+            width: 100%;
+            background-color: #0071C5;
+            color: #fff;
+            padding: 1rem;
+            font-size: 16px;
+            border-radius: 5px;
+            border: transparent;
+            margin-top: 1rem;
+            cursor: pointer;
+            transition: .3s ease-in-out;
+            box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+        }
+        .box .container > button:hover {
+            background-color: #3F51B5;
+        }
+        @media (max-width:590px) {
+            .box .container {
+                padding: 2rem 0.5rem;
+            }
+            .box .container .bx input:not([type="checkbox"]) {
+                width: 120px;
+            }
+            .box .container .result input {
+                width: 70%;
+            }
+            .box .container .result button {
+                width: 28%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h3 class="title">Password Generator</h3>
+        <div class="container">
+            <div class="result">
+                <input type="text" name="" id="result" disabled>
+                <button onclick="copyButtonClicked()">Copy</button>
+            </div>
+            <div class="bx">
+                    <h4>Password Length</h4>
+                    <input type="number" name="" value="6" id="pass_length" min=1>
+                </div>
+                <div class="bx">
+                    <h4>Use letters</h4>
+                    <input type="checkbox" name="" id="" checked>
+                </div>
+                <div class="bx">
+                    <h4>Use Numbers</h4>
+                    <input type="checkbox" name="" id="" checked>
+                </div>
+                <div class="bx">
+                    <h4>Use special charachters</h4>
+                    <input type="checkbox" name="" id="">
+                </div>
+                <div class="bx">
+                    <h4>Use Capitals</h4>
+                    <input type="checkbox" name="" id="">
+                </div>
+                <button id="generate">Generate</button>
+            </div>
+        </div>
+    </div>
+    <script>
+    function Rand(a) {
+    let num = []
+    let rand_num = 0;
+    let str = '';
+    for(let i=0; i < a.length; i++) {
+        rand_num = Math.floor(Math.random() * a.length)
+        if(i == 0) {
+            str+= a[rand_num];
+            num.push(rand_num)
+        }else {
+            while(num.includes(rand_num)) {
+                rand_num = Math.floor(Math.random() * a.length)
+            }
+            str+= a[rand_num];
+            num.push(rand_num)
+        }
+    }
+    return str
+}
+    function RandLetters() {
+        let lettersArray = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+        return lettersArray[Math.floor(Math.random() * lettersArray.length)]
+    }
+    function RandNumbers() {
+        let numbersArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+        return numbersArray[Math.floor(Math.random() * numbersArray.length)]
+    }
+    function RandSpecialCh() {
+        let specialCharsArray = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '-', '+', '=', '[', ']', '{', '}', '|', ';', ':', ',', '.', '<', '>', '/', '?'];
+        return specialCharsArray[Math.floor(Math.random() * specialCharsArray.length)]
+    }
+    function GeneratePass() {
+    let pass_length = document.getElementById('pass_length').value;
+    let result = '';
+    let stope = true
+    if((!letters && !numbers && !special_ch && !capitals)) {
+        alert('Please Check an Option !');
+        return false
+    }else if(pass_length < 0 || pass_length > 200) {
+        alert('Invalid Password Length !');
+        return false
+    }else {
+        while(stope) {
+        if(letters) result += RandLetters().toLowerCase();
+        if(numbers) result += RandNumbers();
+        if(special_ch) result += RandSpecialCh();
+        if(capitals) result += RandLetters();
+        if(result.length >= pass_length) stope = false
+        }
+        stope = true
+        if(result.length > pass_length)return Rand(result).slice(0,pass_length);
+        return Rand(result);
+    }
+}
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text)
+            .then(() => {
+                alert('Password copied to clipboard !')
+            })
+            .catch((err) => {
+            console.error('Failed to copy text: ', err);
+            });
+        }
+    function copyButtonClicked() {
+        let textToCopy = res.value;
+        copyToClipboard(textToCopy);
+    }
+    let letters = false,numbers = false,special_ch = false,capitals = false
+    let res = document.getElementById('result');
+    let generate = document.getElementById('generate');
+    let container = document.querySelector('.container');
+    generate.addEventListener('click',()=> {
+        if(container.children[2].children[1].checked) {
+            letters = true
+        }else {
+            letters = false
+        }
+        if(container.children[3].children[1].checked) {
+            numbers = true
+        }else {
+            numbers = false
+        }
+        if(container.children[4].children[1].checked) {
+            special_ch = true
+        }else {
+            special_ch = false
+        }
+        if(container.children[5].children[1].checked) {
+            capitals = true
+        }else {
+            capitals = false
+        }
+        if(!GeneratePass()) {
+        }else {
+            res.value = GeneratePass();
+        }
+    })
+</script>
+</body>
+</html>
